@@ -27,7 +27,7 @@ app.get('/', async (req, res) => {
 //GET /fruits/new
 // get the page that shows the user the form
 app.get('/fruits/new', (req, res) => {
-    res.send('This route sends the user to a form!');
+    res.render('fruits/new.ejs');
 })
 
 app.listen(3000, () => {

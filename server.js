@@ -6,7 +6,10 @@ const app = express();
 
 // GET /
 app.get('/', async (req, res) => {
-    res.send('hello friend');
+    res.render('index.ejs');
+    // render helps us send our templates to the browser
+    // render is taking a file, and show it on the browser
+    // res.send, sends a very simple string
 });
 
 app.listen(3000, () => {

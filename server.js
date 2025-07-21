@@ -3,8 +3,8 @@ dotenv.config(); // using dotenv to bring the variables from the .env file
 
 const express = require("express");
 const mongoose = require("mongoose");
-const methodOverride = require('method-override');
-const morgan = require('morgan');
+const methodOverride = require("method-override");
+const morgan = require("morgan");
 
 const app = express();
 
@@ -20,8 +20,8 @@ const Fruit = require("./models/fruit.js");
 
 // adding middleware for app
 app.use(express.urlencoded({ extended: false }));
-app.use(methodOverride('_method'));
-app.use(morgan('dev'));
+app.use(methodOverride("_method"));
+app.use(morgan("dev"));
 
 // GET /
 app.get("/", async (req, res) => {
@@ -47,10 +47,10 @@ app.get("/fruits/new", (req, res) => {
 // GET /fruits/:fruitId
 // enter in the id, and it should show this message
 app.get("/fruits/:fruitId", async (req, res) => {
-    const foundFruit = await Fruit.findById(req.params.fruitId);
-    console.log(foundFruit);
-    res.render('fruits/show.ejs', { fruit: foundFruit });
-    // res.send(`This route renders the show page for the fruit with the id of: ${req.params.fruitId}`);
+  const foundFruit = await Fruit.findById(req.params.fruitId);
+  console.log(foundFruit);
+  res.render("fruits/show.ejs", { fruit: foundFruit });
+  // res.send(`This route renders the show page for the fruit with the id of: ${req.params.fruitId}`);
 });
 
 // POST /fruits
@@ -69,10 +69,18 @@ app.post("/fruits", async (req, res) => {
 });
 
 // DELETE route
-app.delete('/fruits/:fruitId', async (req, res) => {
-    await Fruit.findByIdAndDelete(req.params.fruitId);
-    res.redirect('/fruits');
-})
+app.delete("/fruits/:fruitId", async (req, res) => {
+  await Fruit.findByIdAndDelete(req.params.fruitId);
+  res.redirect("/fruits");
+});
+
+app.get("/fruits/:fruitId/edit", async (req, res) => {
+  const foundFruit = await Fruit.findById(req.params.fruitId);
+  console.log(foundFruit);
+  res.render("fruits/edit.ejs", {
+    fruit: foundFruit,
+  });
+});
 
 app.listen(3000, () => {
   console.log("Listening on port 3000");

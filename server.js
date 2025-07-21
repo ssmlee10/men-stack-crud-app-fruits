@@ -40,6 +40,15 @@ app.get("/fruits/new", (req, res) => {
   res.render("fruits/new.ejs");
 });
 
+// GET /fruits/:fruitId
+// enter in the id, and it should show this message
+app.get("/fruits/:fruitId", async (req, res) => {
+    const foundFruit = await Fruit.findById(req.params.fruitId);
+    console.log(foundFruit);
+    res.render('fruits/show.ejs', { fruit: foundFruit });
+    // res.send(`This route renders the show page for the fruit with the id of: ${req.params.fruitId}`);
+});
+
 // POST /fruits
 app.post("/fruits", async (req, res) => {
   // req.body is what we are modifying
